@@ -43,7 +43,7 @@ const Table = ({ dataFetchService, limit = 10, filters = [], ...props }: PropsTa
                   if (filterValue.type === 'dropdown-multiple') {
                     return dropdownMultipleFilterObj({
                       field: filterValue.field,
-                      value: filterValue.values.map(value => value.value)
+                      value: filterValue.values.map(value => value.text)
                     })
                   }
 

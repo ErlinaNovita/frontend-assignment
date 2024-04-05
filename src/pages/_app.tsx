@@ -8,6 +8,9 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar/Index";
 import { Box, Container, Toolbar } from "@mui/material";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient()
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -17,28 +20,30 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider theme={theme}>
         <Provider>
-          <Box sx={{ display: "flex" }}>
-            <CssBaseline />
-            <Header />
-            <Sidebar />
-            <Box
-              component="main"
-              sx={{
-                backgroundColor: (theme) =>
-                  theme.palette.mode === "light"
-                    ? theme.palette.grey[100]
-                    : theme.palette.grey[900],
-                flexGrow: 1,
-                height: "100vh",
-                overflow: "auto",
-              }}
-            >
-              <Toolbar />
-              <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                <Component {...pageProps} />
-              </Container>
+          <QueryClientProvider client={queryClient} >
+            <Box sx={{ display: "flex" }}>
+              <CssBaseline />
+              <Header />
+              <Sidebar />
+              <Box
+                component="main"
+                sx={{
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === "light"
+                      ? theme.palette.grey[100]
+                      : theme.palette.grey[900],
+                  flexGrow: 1,
+                  height: "100vh",
+                  overflow: "auto",
+                }}
+              >
+                <Toolbar />
+                <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                  <Component {...pageProps} />
+                </Container>
+              </Box>
             </Box>
-          </Box>
+          </QueryClientProvider>
         </Provider>
       </ThemeProvider>
     </AppCacheProvider>
